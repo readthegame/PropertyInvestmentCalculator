@@ -212,6 +212,6 @@ else:
         st.metric("Total Return",str(round(total_return,1))+"%")
 
 st.header(str(appraisal_term) + " Year Cash Flows")
-irr_cash_flow.style.hide_index()
+
 irr_cash_flow
 
