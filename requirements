@@ -1,0 +1,8 @@
+streamlit
+numpy
+numpy_financial
+pandas
+requests
+json
+datetime
+seaborn
