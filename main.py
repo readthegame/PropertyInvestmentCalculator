@@ -148,6 +148,9 @@ for i in range(1,len(cash_flow)):
         
         cash_flow.at[i,"Mortgage"] = -ongoing_monthly_mortgage_cost*12
 
+cash_flow["Refinance Income"] = np.where((refinance_toggle==True)&(cash_flow["Year"]==mortgage_term),
+                                            refinance_amount,0)
+
 irr_cash_flow = cash_flow.copy()[cash_flow["Year"]<=appraisal_term]
 
 irr_cash_flow["Exit Sale Price"] = np.where(irr_cash_flow["Year"]==appraisal_term,
@@ -157,9 +160,6 @@ irr_cash_flow["Exit Sale Price"] = np.where(irr_cash_flow["Year"]==appraisal_ter
 irr_cash_flow["Total Cash Flow"] = irr_cash_flow["Upfront Costs"] + irr_cash_flow["Exit Sale Price"] + irr_cash_flow["Income"] + irr_cash_flow["Costs"] + irr_cash_flow["Mortgage"]
 
 payback_cash_flow = cash_flow
-
-payback_cash_flow["Refinance Income"] = np.where(refinance_toggle==True,
-                                            refinance_amount,0)
 
 payback_cash_flow["Exit Sale Price"] = np.where(payback_cash_flow["Year"]==100,
                      (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** 99) - mortgage,
