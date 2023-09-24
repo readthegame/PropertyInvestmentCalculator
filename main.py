@@ -154,7 +154,7 @@ cash_flow["Refinance Income"] = np.where((refinance_toggle==True)&(cash_flow["Ye
 irr_cash_flow = cash_flow.copy()[cash_flow["Year"]<=appraisal_term]
 
 irr_cash_flow["Exit Sale Price"] = np.where(irr_cash_flow["Year"]==appraisal_term,
-                     (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage,
+                     (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage - refinance_amount,
                     0)
 
 irr_cash_flow["Total Cash Flow"] = irr_cash_flow["Upfront Costs"] + irr_cash_flow["Exit Sale Price"] + irr_cash_flow["Income"] + irr_cash_flow["Costs"] + irr_cash_flow["Mortgage"] + irr_cash_flow["Refinance Income"]
@@ -162,7 +162,7 @@ irr_cash_flow["Total Cash Flow"] = irr_cash_flow["Upfront Costs"] + irr_cash_flo
 payback_cash_flow = cash_flow
 
 payback_cash_flow["Exit Sale Price"] = np.where(payback_cash_flow["Year"]==100,
-                     (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** 99) - mortgage,
+                     (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** 99) - mortgage - refinance_amount,
                     0)
 
 payback_cash_flow["Total Cash Flow"] = payback_cash_flow["Upfront Costs"] + payback_cash_flow["Exit Sale Price"] + payback_cash_flow["Income"] + payback_cash_flow["Costs"] + payback_cash_flow["Mortgage"] + payback_cash_flow["Refinance Income"]
