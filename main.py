@@ -148,7 +148,7 @@ for i in range(1,len(cash_flow)):
         
         cash_flow.at[i,"Mortgage"] = -ongoing_monthly_mortgage_cost*12
 
-  irr_cash_flow = cash_flow.copy()[cash_flow["Year"]<=appraisal_term]
+irr_cash_flow = cash_flow.copy()[cash_flow["Year"]<=appraisal_term]
 
 irr_cash_flow["Exit Sale Price"] = np.where(irr_cash_flow["Year"]==appraisal_term,
                      (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage,
