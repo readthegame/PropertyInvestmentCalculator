@@ -30,7 +30,7 @@ with ca2:
     
 with st.form(key="inputs"):
 
-    c1, c2, c3, c4 = st.columns(4)
+    c1, c2, c3 = st.columns(3)
 
     with c1:
         st.subheader("Appraisal")
@@ -38,9 +38,9 @@ with st.form(key="inputs"):
 
         st.subheader("Property Value")
         purchase_price = st.number_input('Purchase Price',value=100000,min_value=1)
+        property_investment = st.number_input("Other Upfront investment",min_value=0)
         y1_capital_growth = st.number_input("First Year Property Value Growth %")/100
         capital_growth = st.number_input("Ongoing Annual Property Value Growth %")/100
-        property_investment = st.number_input("Other Upfront investment",min_value=0)
 
     with c2:
 
@@ -64,8 +64,6 @@ with st.form(key="inputs"):
         mgmt_fee_percentage = st.number_input("Management Fee %",min_value=0,value=10)/100
         other_fee_percentage = st.number_input("Other Costs %",min_value=0)/100
         inflation = st.number_input("Annual Cost Inflation %",value=2)/100
-
-    with c4:
 
         st.subheader("Tax")
         
