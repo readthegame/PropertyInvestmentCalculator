@@ -45,7 +45,7 @@ with st.form(key="inputs"):
     with c2:
 
         st.subheader("Mortgage")
-        st.radio("Mortgage Type","")
+        st.radio("Mortgage Type",["Interest Only"])
         LTV = st.number_input("LTV %",min_value=0,max_value=100,value=75)
         starting_mortgage_rate = st.number_input("Starting Mortgage Rate %",min_value=0,value=5)/100
         mortgage_term = int(st.number_input("Fixed Term (yrs)",min_value=1,max_value=25))
