@@ -23,21 +23,21 @@ with st.form(key="inputs"):
 
         st.subheader("Property Value")
         purchase_price = st.number_input('Purchase Price',value=100000,min_value=1)
-        purchase_tax_rate = st.number_input('Purchase Tax %',value=5,min_value=0)/100
+        purchase_tax_rate = st.number_input('Property Purchase Tax % (e.g. stamp duty)',value=5,min_value=0)/100
         property_investment = st.number_input("Other Upfront investment",min_value=0)
         y1_capital_growth = st.number_input("First Year Property Value Growth %")/100
         capital_growth = st.number_input("Ongoing Annual Property Value Growth %")/100
-        sale_tax_rate = st.number_input("Sale Tax %",value=20,min_value=0,max_value=100)/100
+        sale_tax_rate = st.number_input("Propert Sale Tax % (e.g. capital gains tax)",value=20,min_value=0,max_value=100)/100
 
     with c2:
 
         st.subheader("Mortgage")
         st.radio("Mortgage Type",["Interest Only"])
         LTV = st.number_input("LTV %",min_value=0,max_value=100,value=75)
-        starting_mortgage_rate = st.number_input("Starting Mortgage Rate %",min_value=0,value=5)/100
+        starting_mortgage_rate = st.number_input("Starting Mortgage Rate %",min_value=0,value=6)/100
         mortgage_term = int(st.number_input("Fixed Term (yrs)",min_value=1,max_value=25))
         refinance_toggle = st.toggle("Equity Release after Fixed Term")
-        ongoing_mortgage_rate = st.number_input("Ongoing Mortgage Rate %",min_value=0,value=3)/100
+        ongoing_mortgage_rate = st.number_input("Ongoing Mortgage Rate %",min_value=0,value=4)/100
         mortgage_fees_percentage = st.number_input("Mortgage Fees %")/100
         legal_fees_percentage = st.number_input("Legal Fees %",min_value=0,value=1)/100
 
@@ -153,6 +153,12 @@ payback_cash_flow["Exit Sale Price"] = np.where(payback_cash_flow["Year"]==100,
 payback_cash_flow["Exit Tax"] = payback_cash_flow["Exit Sale Price"] * sale_tax_rate * -1
 
 payback_cash_flow["Total Cash Flow"] = payback_cash_flow["Upfront Costs"] + payback_cash_flow["Exit Sale Price"] + payback_cash_flow["Income"] + payback_cash_flow["Costs"] + payback_cash_flow["Mortgage"] + payback_cash_flow["Tax"] + payback_cash_flow["Refinance Income"] + payback_cash_flow["Exit Tax"]
+
+payback_cash_flow["Cumulative Cash Flow"] = payback_cash_flow["Total Cash Flow"]
+
+for i in range(1,len(payback_cash_flow)):
+  
+  payback_cash_flow.at[i,"Cumulative Cash Flow"] = payback_cash_flow.at[i,"Total Cash Flow"] + payback_cash_flow.at[i - 1,"Cumulative Cash Flow"]
 
 try:
     
