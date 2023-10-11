@@ -78,7 +78,8 @@ if (purchase_price!=0)|(LTV!=0)|(monthly_income!=0):
         
         refinance_amount = 0
     
-    ongoing_monthly_mortgage_cost = (mortgage + refinance_amount + mortgage_fees*2) * ongoing_mortgage_rate / 12
+    ongoing_mortgage_fees = (mortgage + refinance_amount) * mortgage_fees_percentage
+    ongoing_monthly_mortgage_cost = (mortgage + refinance_amount + ongoing_mortgage_fees) * ongoing_mortgage_rate / 12
     monthly_pre_tax = monthly_income*(1-vacancy_rate) - monthly_mgmt_fee - monthly_other_fee - starting_monthly_mortgage_cost
     gross_initial_yield = (monthly_income * 12) / purchase_price
     net_initial_yield = (monthly_pre_tax * 12) / purchase_price
