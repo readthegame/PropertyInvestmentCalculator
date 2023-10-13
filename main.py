@@ -247,7 +247,7 @@ with tab2:
       other_fee_slider = st.slider("Select range",min_value=0.0,max_value=other_fee_percentage*100*2.0,value=(other_fee_percentage*100*0.5,other_fee_percentage*100*1.5))
       inflation_slider = st.slider("Select range",min_value=-100.0,max_value=inflation*100*2.0,value=(inflation*100*0.5,inflation*100*1.5))
 
-  st.form_submit_button("Run simulation")
+    st.form_submit_button("Run simulation")
 
 
 
