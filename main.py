@@ -237,15 +237,15 @@ with tab2:
       
     with c2:
 
-      upfront_investment_slider = st.slider("Select range",min_value=0,max_value=1000000,value=(property_investment*0.75,property_investment*1.25))
-      y1_capital_growth_slider = st.slider("Select range",min_value=0,max_value=100,value=(y1_capital_growth*100*0.5,y1_capital_growth*100*1.5))/100
-      capital_growth_slider = st.slider("Select range",min_value=0,max_value=100,value=(capital_growth*100*0.5,capital_growth*100*1.5))/100
-      ongoing_mortgage_rate_slider = st.slider("Select range",min_value=0,max_value=20,value=(ongoing_mortgage_rate*100*0.5,ongoing_mortgage_rate*100*1.5))/100
-      monthly_income_slider = st.slider("Select range",min_value=0,max_value=100000,value=(monthly_income*0.9,monthly_income*1.1))
-      rental_growth_slider = st.slider("Select range",min_value=0,max_value=100,value=(rental_growth*100*0.5,rental_growth*100*1.5))/100
-      vacancy_rate_slider = st.slider("Select range",min_value=0,max_value=100,value=(vacancy_rate*100*0.5,vacancy_rate*100*1.5))/100
-      other_fee_slider = st.slider("Select range",min_value=0,max_value=100,value=(other_fee_percentage*100*0.5,other_fee_percentage*100*1.5))/100
-      inflation_slider = st.slider("Select range",min_value=0,max_value=100,value=(inflation*100*0.5,inflation*100*1.5))/100
+      upfront_investment_slider = st.slider("Select range",min_value=0.0,max_value=1000000.0,value=(property_investment*0.75,property_investment*1.25))
+      y1_capital_growth_slider = st.slider("Select range",min_value=-100.0,max_value=100.0,value=(y1_capital_growth*100*0.5,y1_capital_growth*100*1.5))/100
+      capital_growth_slider = st.slider("Select range",min_value=-100.0,max_value=100.0,value=(capital_growth*100*0.5,capital_growth*100*1.5))/100
+      ongoing_mortgage_rate_slider = st.slider("Select range",min_value=0.0,max_value=30.0,value=(ongoing_mortgage_rate*100*0.5,ongoing_mortgage_rate*100*1.5))/100
+      monthly_income_slider = st.slider("Select range",min_value=0.0,max_value=100000.0,value=(monthly_income*0.9,monthly_income*1.1))
+      rental_growth_slider = st.slider("Select range",min_value=-100.0,max_value=100.0,value=(rental_growth*100*0.5,rental_growth*100*1.5))/100
+      vacancy_rate_slider = st.slider("Select range",min_value=0.0,max_value=100.0,value=(vacancy_rate*100*0.5,vacancy_rate*100*1.5))/100
+      other_fee_slider = st.slider("Select range",min_value=0.0,max_value=100.0,value=(other_fee_percentage*100*0.5,other_fee_percentage*100*1.5))/100
+      inflation_slider = st.slider("Select range",min_value=-100.0,max_value=100.0,value=(inflation*100*0.5,inflation*100*1.5))/100
       
 
 
