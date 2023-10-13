@@ -246,6 +246,8 @@ with tab2:
       vacancy_rate_slider = st.slider("Select range",min_value=0.0,max_value=100.0,value=(vacancy_rate*100*0.5,vacancy_rate*100*1.5))/100
       other_fee_slider = st.slider("Select range",min_value=0.0,max_value=100.0,value=(other_fee_percentage*100*0.5,other_fee_percentage*100*1.5))/100
       inflation_slider = st.slider("Select range",min_value=-100.0,max_value=100.0,value=(inflation*100*0.5,inflation*100*1.5))/100
-      
+
+  st.form_submit_button("Run simulation")
+
 
 
