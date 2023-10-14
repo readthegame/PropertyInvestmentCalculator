@@ -218,33 +218,31 @@ with tab2:
   st.header("Monte Carlo Simulation - Inputs")
 
   st.text("Select which variables to model within the simulation:")
-  
-  c1, c2 = st.columns(2)
 
-  with c1:
+  monte_carlo_df = pd.DataFrame(
+    [
+      {"Metric":"Other Upfront Investment", "Simuate?":True, "Base": property_investment, "Min Value": max(property_investment - 5000.0,0.0), "Max Value": property_investment+5000.0},
+      {"Metric":"First Year Property Value Growth %", "Simuate?":True, "Base": y1_capital_growth*100, "Min Value": y1_capital_growth*100 - 1.0, "Max Value": y1_capital_growth*100 + 1.0},
+      {"Metric":"Ongoing Annual Property Value Growth %", "Simuate?":True, "Base": capital_growth*100, "Min Value": capital_growth*100 - 1.0, "Max Value": capital_growth*100 + 1.0},
+      {"Metric":"Ongoing Mortgage Rate %", "Simuate?":True, "Base": ongoing_mortgage_rate*100, "Min Value": max(ongoing_mortgage_rate*100 - 1.0,0.0), "Max Value": ongoing_mortgage_rate*100 + 1.0},
+      {"Metric":"Monthly Gross Rental Income", "Simuate?":True, "Base": monthly_income, "Min Value": max(monthly_income - 100.0,0), "Max Value": monthly_income + 100.0},
+      {"Metric":"Annual Rental Growth %", "Simuate?":True, "Base": rental_growth*100, "Min Value": rental_growth*100 -1.0, "Max Value": rental_growth*100 + 1.0},
+      {"Metric":"Average Vacancy Rate %", "Simuate?":True, "Base": vacancy_rate*100, "Min Value": max(vacancy_rate*100 - 1.0,0.0), "Max Value": vacancy_rate*100 +1.0},
+      {"Metric":"Other Costs %", "Simuate?":True, "Base": other_fee_percentage*100, "Min Value": max(other_fee_percentage*100 - 1.0,0.0), "Max Value": other_fee_percentage*100 - 1.0},
+      {"Metric":"Annual Cost Inflation %", "Simuate?":True, "Base": inflation*100, "Min Value": inflation*100 - 1.0, "Max Value": inflation * 100 + 1.0},
+    ]
+  )
 
-    upfront_investment_toggle = st.toggle("Other Upfront Investment",value=True)
-    y1_capital_growth_toggle = st.toggle("First Year Property Value Growth %",value=True)
-    capital_growth_toggle = st.toggle("Ongoing Annual Property Value Growth %",value=True)
-    ongoing_mortgage_rate_toggle = st.toggle("Ongoing Mortgage Rate %",value=True)
-    monthly_income_toggle = st.toggle("Monthly Gross Rental Income",value=True)
-    rental_growth_toggle = st.toggle("Annual Rental Growth %",value=True)
-    vacancy_rate_toggle = st.toggle("Average Vacancy Rate %",value=True)
-    other_fee_toggle = st.toggle("Other Costs %",value=True)
-    inflation_toggle = st.toggle("Annual Cost Inflation %",value=True)
-    
-  with c2:
-
-    upfront_investment_slider = st.slider("Select range",disabled=upfront_investment_toggle,label_visibility="collapsed",min_value=0.0,max_value=property_investment*10.0+1.0,value=(property_investment*0.75,property_investment*1.25))
-    y1_capital_growth_slider = st.slider("Select range",label_visibility="collapsed",min_value=-y1_capital_growth*100*-2.0-1.0,max_value=y1_capital_growth*100*2.0+1.0,value=(y1_capital_growth*100*0.5,y1_capital_growth*100*1.5))
-    capital_growth_slider = st.slider("Select range",label_visibility="collapsed",min_value=-capital_growth*100*2.0-1.0,max_value=capital_growth*100*2.0+1.0,value=(capital_growth*100*0.5,capital_growth*100*1.5))/100
-    ongoing_mortgage_rate_slider = st.slider("Select range",label_visibility="collapsed",min_value=0.0,max_value=ongoing_mortgage_rate*100*2.0+1.0,value=(ongoing_mortgage_rate*100*0.5,ongoing_mortgage_rate*100*1.5))
-    monthly_income_slider = st.slider("Select range",label_visibility="collapsed",min_value=0.0,max_value=monthly_income*10.0+1.0,value=(monthly_income*0.9,monthly_income*1.1))
-    rental_growth_slider = st.slider("Select range",label_visibility="collapsed",min_value=-rental_growth*100*2.0-1.0,max_value=rental_growth*100*2.0+1.0,value=(rental_growth*100*0.5,rental_growth*100*1.5))
-    vacancy_rate_slider = st.slider("Select range",label_visibility="collapsed",min_value=0.0,max_value=vacancy_rate*100*2.0+1.0,value=(vacancy_rate*100*0.5,vacancy_rate*100*1.5))
-    other_fee_slider = st.slider("Select range",label_visibility="collapsed",min_value=0.0,max_value=other_fee_percentage*100*2.0+1.0,value=(other_fee_percentage*100*0.5,other_fee_percentage*100*1.5))
-    inflation_slider = st.slider("Select range",label_visibility="collapsed",min_value=-inflation*100*2.0-1.0,max_value=inflation*100*2.0+1.0,value=(inflation*100*0.5,inflation*100*1.5))
-
-
-
+adj_monte_carlo_df = st.data_editor(
+  monte_carlo_df,
+  column_config={
+    "Metric":"Metric",
+    "Simulate?":st.column_config.CheckboxColumn("Simulate?",help="Select whether to include in simulation",default=True),
+    "Base":"Base",
+    "Min Value":st.column_config.NumberColumn("Min Value",help="Enter minimum value for simulation (must be less than Max Value and no greater than Base)"),
+    "Max Value":st.column_config.NumberColumn("Max Value",help="Enter maximum value for simulation (must be greater than Min Value and no less than Base)"),
+  },
+  disabled=["Metric","Base"],
+  hide_index=True
+)
 
