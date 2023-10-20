@@ -88,16 +88,20 @@ with tab1:
                 inflation,
                 tax_rate,
                 tax_application)
+
+  else:
+
+    print()
   
-    payback = calculation[0]
-    appraisal_term = calculation[1]
-    irr = calculation[2]
-    net_initial_yield = calculation[3]
-    gross_initial_yield = calculation[4]
-    capital_return = calculation[5]
-    income_return = calculation[6]
-    total_return = calculation[7]
-    irr_cash_flow = calculation[8]
+  payback = calculation[0]
+  appraisal_term = calculation[1]
+  irr = calculation[2]
+  net_initial_yield = calculation[3]
+  gross_initial_yield = calculation[4]
+  capital_return = calculation[5]
+  income_return = calculation[6]
+  total_return = calculation[7]
+  irr_cash_flow = calculation[8]
   
   st.header("Outputs")
   col1, col2, col3 = st.columns(3)
