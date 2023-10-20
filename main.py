@@ -213,6 +213,9 @@ with tab2:
       
   })
 
+  progress_text = "Operation in progress. Please wait."
+  my_bar = st.progress(0, text=progress_text)
+  
   for i in range(0,len(df_mcs)):
 
     calculation_mcs = calculation(appraisal_term,
@@ -248,4 +251,7 @@ with tab2:
     df_mcs.at[i,"Total Return"] = calculation_mcs[7]
     #df_mcs.at[i,"IRR Cash Flow"] = calculation_mcs[8]
 
+    my_bar.progress(i + 1, text=progress_text)
+
 df_mcs
+my_bar.empty()
