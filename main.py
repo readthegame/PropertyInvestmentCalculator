@@ -211,7 +211,3 @@ df_mcs = pd.DataFrame({
 with st.form(key="mcs_inputs"):
 
   col1, col2 = st.columns(2)
-
-with col1:
-  
-
