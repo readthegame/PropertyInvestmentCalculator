@@ -208,8 +208,6 @@ df_mcs = pd.DataFrame({
 
 #now add in outputs from calc
 
-for i in range(
-
 with st.form(key="mcs_inputs"):
 
   col1, col2 = st.columns(2)
