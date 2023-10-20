@@ -194,7 +194,7 @@ def calculation_ex_payback(appraisal_term,
 
   cash_flow = pd.DataFrame(columns=["Year","Upfront Costs","Income","Costs","Mortgage"])
   
-  for i in range(0,101):
+  for i in range(0,appraisal_term):
     
     cash_flow.at[i,"Year"] = i
   
@@ -237,7 +237,7 @@ def calculation_ex_payback(appraisal_term,
   cash_flow["Refinance Income"] = np.where((refinance_toggle==True)&(cash_flow["Year"]==mortgage_term),
                                             refinance_amount,0)
   
-  irr_cash_flow = cash_flow.copy()[cash_flow["Year"]<=appraisal_term]
+  irr_cash_flow = cash_flow.copy()
   
   irr_cash_flow["Exit Sale Price"] = np.where(irr_cash_flow["Year"]==appraisal_term,
                      (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage - refinance_amount,
