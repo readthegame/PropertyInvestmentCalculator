@@ -1,3 +1,10 @@
+import numpy as np
+import numpy_financial as npf
+import pandas as pd
+import requests
+import json
+import datetime
+
 def calculation(appraisal_term,
                 purchase_price,
                 purchase_tax_rate,
