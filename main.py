@@ -66,7 +66,7 @@ with tab1:
   
   if (purchase_price!=0)|(LTV!=0)|(monthly_income!=0):
   
-    calculation = calculation(appraisal_term,
+    calculations = calculation(appraisal_term,
                 purchase_price,
                 purchase_tax_rate,
                 property_investment,
@@ -93,15 +93,15 @@ with tab1:
 
     print()
   
-  payback = calculation[0]
-  appraisal_term = calculation[1]
-  irr = calculation[2]
-  net_initial_yield = calculation[3]
-  gross_initial_yield = calculation[4]
-  capital_return = calculation[5]
-  income_return = calculation[6]
-  total_return = calculation[7]
-  irr_cash_flow = calculation[8]
+  payback = calculations[0]
+  appraisal_term = calculations[1]
+  irr = calculations[2]
+  net_initial_yield = calculations[3]
+  gross_initial_yield = calculations[4]
+  capital_return = calculations[5]
+  income_return = calculations[6]
+  total_return = calculations[7]
+  irr_cash_flow = calculations[8]
   
   st.header("Outputs")
   col1, col2, col3 = st.columns(3)
