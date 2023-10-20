@@ -251,7 +251,7 @@ with tab2:
     df_mcs.at[i,"Total Return"] = calculation_mcs[7]
     #df_mcs.at[i,"IRR Cash Flow"] = calculation_mcs[8]
 
-    my_bar.progress(i + 1, text=progress_text)
+    my_bar.progress(i, text=progress_text)
 
 df_mcs
 my_bar.empty()
