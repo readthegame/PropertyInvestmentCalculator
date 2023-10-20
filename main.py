@@ -185,7 +185,7 @@ with tab2:
     df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
                                    mode= adj_monte_carlo_df.at[x,"Base"],
                                    right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                   size=100000)
+                                   size=100)
   
     return df_temp
   
