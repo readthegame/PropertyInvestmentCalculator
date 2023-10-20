@@ -213,7 +213,7 @@ with tab2:
       
   })
 
-  for i in range(0,len(df_mcs):
+  for i in range(0,len(df_mcs)):
 
     calculation_mcs = calculation(appraisal_term,
                 purchase_price,
