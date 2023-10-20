@@ -8,7 +8,7 @@ import json
 import datetime
 import seaborn as sns
 import streamlit as st
-from formulas import calculation
+from formulas import calculation, calculation_ex_payback
 
 st.title("Property Investment Calculator")
 
@@ -218,7 +218,7 @@ with tab2:
   
   for i in range(0,len(df_mcs)):
 
-    calculation_mcs = calculation(appraisal_term,
+    calculation_mcs = calculation_ex_payback(appraisal_term,
                                   purchase_price,
                                   purchase_tax_rate,
                                   df_mcs.at[i,"Other Upfront Investment"],
@@ -241,7 +241,7 @@ with tab2:
                                   tax_rate,
                                   tax_application)
     
-    df_mcs.at[i,"Payback"] = calculation_mcs[0]
+    #df_mcs.at[i,"Payback"] = calculation_mcs[0]
     #df_mcs.at[i,"Appraisal Term"] = calculation_mcs[1]
     df_mcs.at[i,"IRR"] = calculation_mcs[2]
     df_mcs.at[i,"NIY"] = calculation_mcs[3]
