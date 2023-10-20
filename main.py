@@ -154,64 +154,98 @@ with tab2:
     ]
   )
 
-adj_monte_carlo_df = st.data_editor(
-  monte_carlo_df,
-  column_config={
-    "Metric":"Metric",
-    "Simulate?":st.column_config.CheckboxColumn("Simulate?",help="Select whether to include in simulation - unticking means only the Base value will be used when running the simulations",default=True),
-    "Base":"Base",
-    "Min Value":st.column_config.NumberColumn("Min Value",help="Enter minimum value for simulation (must be less than Max Value and no greater than Base)"),
-    "Max Value":st.column_config.NumberColumn("Max Value",help="Enter maximum value for simulation (must be greater than Min Value and no less than Base)"),
-  },
-  disabled=["Metric","Base"],
-  hide_index=True
-)
+  with st.form(key="mcs_inputs"):
+    adj_monte_carlo_df = st.data_editor(
+      monte_carlo_df,
+      column_config={
+        "Metric":"Metric",
+        "Simulate?":st.column_config.CheckboxColumn("Simulate?",help="Select whether to include in simulation - unticking means only the Base value will be used when running the simulations",default=True),
+        "Base":"Base",
+        "Min Value":st.column_config.NumberColumn("Min Value",help="Enter minimum value for simulation (must be less than Max Value and no greater than Base)"),
+        "Max Value":st.column_config.NumberColumn("Max Value",help="Enter maximum value for simulation (must be greater than Min Value and no less than Base)"),
+      },
+      disabled=["Metric","Base"],
+      hide_index=True
+    )
 
-property_investment_copy = property_investment
-y1_capital_growth_copy = y1_capital_growth
-capital_growth_copy = capital_growth    
-ongoing_mortgage_rate_copy = ongoing_mortgage_rate
-monthly_income_copy = monthly_income            
-rental_growth_copy = rental_growth
-vacancy_rate_copy = vacancy_rate
-other_fee_percentage_copy = other_fee_percentage
-inflation_copy = inflation
+    st.form_submit_button("Run Simulation")
+  
+  property_investment_copy = property_investment
+  y1_capital_growth_copy = y1_capital_growth
+  capital_growth_copy = capital_growth    
+  ongoing_mortgage_rate_copy = ongoing_mortgage_rate
+  monthly_income_copy = monthly_income            
+  rental_growth_copy = rental_growth
+  vacancy_rate_copy = vacancy_rate
+  other_fee_percentage_copy = other_fee_percentage
+  inflation_copy = inflation
+  
+  def rand_number(x):
+  
+    df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
+                                   mode= adj_monte_carlo_df.at[x,"Base"],
+                                   right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
+                                   size=100000)
+  
+    return df_temp
+  
+  property_investment_rand = rand_number(0)
+  y1_capital_growth_rand = rand_number(1)
+  capital_growth_rand = rand_number(2)  
+  ongoing_mortgage_rate_rand = rand_number(3)
+  monthly_income_rand = rand_number(4)            
+  rental_growth_rand = rand_number(5)
+  vacancy_rate_rand = rand_number(6)
+  other_fee_percentage_rand = rand_number(7)
+  inflation_rand = rand_number(8)
+  
+  df_mcs = pd.DataFrame({
+      
+      "Other Upfront Investment":property_investment_rand,
+     "First Year Property Value Growth %":y1_capital_growth_rand,
+     "Ongoing Annual Property Value Growth %":capital_growth_rand,
+     "Ongoing Mortgage Rate %":ongoing_mortgage_rate_rand,
+     "Monthly Gross Rental Income":monthly_income_rand,
+     "Annual Rental Growth %":rental_growth_rand,
+     "Average Vacancy Rate %":vacancy_rate_rand,
+     "Other Costs %":other_fee_percentage_rand,
+     "Annual Cost Inflation %":inflation_rand
+      
+  })
 
-def rand_number(x):
+  for i in range(0,len(df_mcs):
 
-  df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                 mode= adj_monte_carlo_df.at[x,"Base"],
-                                 right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                 size=100000)
-
-  return df_temp
-
-property_investment_rand = rand_number(0)
-y1_capital_growth_rand = rand_number(1)
-capital_growth_rand = rand_number(2)  
-ongoing_mortgage_rate_rand = rand_number(3)
-monthly_income_rand = rand_number(4)            
-rental_growth_rand = rand_number(5)
-vacancy_rate_rand = rand_number(6)
-other_fee_percentage_rand = rand_number(7)
-inflation_rand = rand_number(8)
-
-df_mcs = pd.DataFrame({
+    calculation_mcs = calculation(appraisal_term,
+                purchase_price,
+                purchase_tax_rate,
+                df_mcs.at[i,"Other Upfront Investment"],
+                df_mcs.at[i,"First Year Property Value Growth %"],
+                df_mcs.at[i,"Ongoing Annual Property Value Growth %"],
+                sale_tax_rate,
+                LTV,
+                starting_mortgage_rate,
+                mortgage_term,
+                refinance_toggle,
+                df_mcs.at[i,"Ongoing Mortgage Rate %"],
+                mortgage_fees_percentage,
+                legal_fees_percentage,
+                df_mcs.at[i,"Monthly Gross Rental Income"],
+                df_mcs.at[i,"Annual Rental Growth %"],
+                df_mcs.at[i,"Average Vacancy Rate %"],
+                mgmt_fee_percentage,
+                df_mcs.at[i,"Other Costs %"],
+                df_mcs.at[i,"Annual Cost Inflation %"],
+                tax_rate,
+                tax_application)
     
-    "Other Upfront Investment":property_investment_rand,
-   "First Year Property Value Growth %":y1_capital_growth_rand,
-   "Ongoing Annual Property Value Growth %":capital_growth_rand,
-   "Ongoing Mortgage Rate %":ongoing_mortgage_rate_rand,
-   "Monthly Gross Rental Income":monthly_income_rand,
-   "Annual Rental Growth %":rental_growth_rand,
-   "Average Vacancy Rate %":vacancy_rate_rand,
-   "Other Costs %":other_fee_percentage_rand,
-   "Annual Cost Inflation %":inflation_rand
-    
-})
+    df_mcs.at[i,"Payback"] = calculation_mcs[0]
+    #df_mcs.at[i,"Appraisal Term"] = calculation_mcs[1]
+    df_mcs.at[i,"IRR"] = calculation_mcs[2]
+    df_mcs.at[i,"NIY"] = calculation_mcs[3]
+    df_mcs.at[i,"GIY"] = calculation_mcs[4]
+    df_mcs.at[i,"Capital Return"] = calculation_mcs[5]
+    df_mcs.at[i,"Income Return"] = calculation_mcs[6]
+    df_mcs.at[i,"Total Return"] = calculation_mcs[7]
+    #df_mcs.at[i,"IRR Cash Flow"] = calculation_mcs[8]
 
-#now add in outputs from calc
-
-with st.form(key="mcs_inputs"):
-
-  col1, col2 = st.columns(2)
+df_mcs
