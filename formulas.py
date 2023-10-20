@@ -115,7 +115,7 @@ def calculation(appraisal_term,
   
   for i in range(1,len(payback_cash_flow)):
   
-  payback_cash_flow.at[i,"Cumulative Cash Flow"] = payback_cash_flow.at[i,"Total Cash Flow"] + payback_cash_flow.at[i - 1,"Cumulative Cash Flow"]
+    payback_cash_flow.at[i,"Cumulative Cash Flow"] = payback_cash_flow.at[i,"Total Cash Flow"] + payback_cash_flow.at[i - 1,"Cumulative Cash Flow"]
   
   try:
     
