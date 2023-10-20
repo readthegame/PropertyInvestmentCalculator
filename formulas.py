@@ -254,7 +254,7 @@ def calculation_ex_payback(appraisal_term,
   income_return = (((sum(irr_cash_flow["Income"])+
                   sum(irr_cash_flow["Costs"])+
                   sum(irr_cash_flow["Mortgage"])+
-                 purchase_price)/purchase_price) ** (1/appraisal_term) - 1) * 100
+                 float(purchase_price))/float(purchase_price)) ** (1/int(appraisal_term)) - 1) * 100
   total_return = capital_return + income_return
   payback = "n/a"
   
