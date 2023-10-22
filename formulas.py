@@ -198,10 +198,10 @@ def calculation_mcs(appraisal_term,
   cf_costs = (cf_income * -(mgmt_fee_percentage + other_fee_percentage)) * (1+(inflation-rental_growth))**appraisal_term
   cf_mortgage = -starting_monthly_mortgage_cost*12*mortgage_term - ongoing_monthly_mortgage_cost*12*(appraisal_term - mortgage_term)
   cf_tax = np.where(tax_application=="Income Only",
-                            cf_income * tax_rate * -1,
+                            cf_income * -tax_rate,
                             np.where(tax_application=="Income less expenses (excl mortgage costs)",
-                                     (cf_income + cf_costs) * tax_rate * -1,
-                                     (cf_income + cf_costs + cf_mortgage) * tax_rate * -1))
+                                     (cf_income + cf_costs) * -tax_rate,
+                                     (cf_income + cf_costs + cf_mortgage) * -tax_rate))
   cf_refinance_amount = refinance_amount
   cf_exit_sale_price = (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage - refinance_amount
   cf_exit_tax = cf_exit_sale_price * sale_tax_rate * -1
