@@ -127,7 +127,7 @@ with tab1:
       with col1:
           st.metric("Cash Payback (yrs)",payback)
           st.metric(str(appraisal_term)+"yr IRR on Cash",str(round(irr*100,1))+"%")
-          st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",total_cash_profit)
+          st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",int(total_cash_profit))
 
       with col2:
           st.metric("Net Initial Yield",str(round(net_initial_yield*100,1))+"%")
