@@ -259,7 +259,7 @@ with tab2:
     
         my_bar.progress(round(i/mcs_length,1), text=progress_text)
       
-      c1, c2 = st.columns(3)
+      c1, c2 = st.columns(2)
   
       with c1:
 
