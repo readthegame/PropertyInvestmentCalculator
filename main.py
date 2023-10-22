@@ -10,6 +10,8 @@ import seaborn as sns
 import streamlit as st
 from formulas import calculation, calculation_mcs
 
+mcs_length = 1000
+
 st.title("Property Investment Calculator")
 
 tab1, tab2, tab3 = st.tabs(["Main", "Monte Carlo Simulation", "Sensitivity Analysis"])
@@ -185,7 +187,7 @@ with tab2:
     df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
                                    mode= adj_monte_carlo_df.at[x,"Base"],
                                    right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                   size=1000)
+                                   size=mcs_length)
   
     return df_temp
   
@@ -246,9 +248,9 @@ with tab2:
     df_mcs.at[i,"Capital Return"] = calculations_mcs[2]
     df_mcs.at[i,"Income Return"] = calculations_mcs[3]
     df_mcs.at[i,"Total Return"] = calculations_mcs[4]
-    #df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
+    df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
 
-    my_bar.progress(i, text=progress_text)
+    my_bar.progress(i*100/mcs_length, text=progress_text)
 
-df_mcs
-my_bar.empty()
+  df_mcs
+  my_bar.empty()
