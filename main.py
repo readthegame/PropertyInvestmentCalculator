@@ -292,3 +292,7 @@ with tab2:
         st.text("95% likely within: "+str(round((mean_tcp-std_tcp-std_tcp),0))+" to "+str(round((mean_tcp+std_tcp+std_tcp),0)))
     
         st.pyplot(fig2)
+
+      df_mcs
+
+
