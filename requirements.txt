@@ -5,4 +5,4 @@ pandas
 requests
 datetime
 seaborn
-matplotlib.pyplot
+matplotlib
