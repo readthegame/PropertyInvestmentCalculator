@@ -10,7 +10,7 @@ import seaborn as sns
 import streamlit as st
 from formulas import calculation, calculation_mcs
 
-mcs_length = 10000
+mcs_length = 100000
 
 st.title("Property Investment Calculator")
 
@@ -104,6 +104,7 @@ with tab1:
   income_return = calculations[6]
   total_return = calculations[7]
   irr_cash_flow = calculations[8]
+  total_cash_profit = calculations[9]
   
   st.header("Outputs")
   col1, col2, col3 = st.columns(3)
@@ -113,6 +114,7 @@ with tab1:
       with col1:
           st.metric("Cash Payback (yrs)",0)
           st.metric(str(appraisal_term)+"yr IRR on Cash",0)
+          st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",0)
       with col2:
           st.metric("Net Initial Yield",0)
           st.metric("Gross Initial Yield",0)
@@ -124,6 +126,8 @@ with tab1:
       with col1:
           st.metric("Cash Payback (yrs)",payback)
           st.metric(str(appraisal_term)+"yr IRR on Cash",str(round(irr*100,1))+"%")
+          st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",total_cash_profit)
+
       with col2:
           st.metric("Net Initial Yield",str(round(net_initial_yield*100,1))+"%")
           st.metric("Gross Initial Yield",str(round(gross_initial_yield*100,1))+"%")
