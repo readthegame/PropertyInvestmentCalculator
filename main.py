@@ -185,7 +185,7 @@ with tab2:
     df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
                                    mode= adj_monte_carlo_df.at[x,"Base"],
                                    right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                   size=100)
+                                   size=1000)
   
     return df_temp
   
@@ -222,22 +222,22 @@ with tab2:
                                   purchase_price,
                                   purchase_tax_rate,
                                   df_mcs.at[i,"Other Upfront Investment"],
-                                  df_mcs.at[i,"First Year Property Value Growth %"],
-                                  df_mcs.at[i,"Ongoing Annual Property Value Growth %"],
+                                  df_mcs.at[i,"First Year Property Value Growth %"]/100,
+                                  df_mcs.at[i,"Ongoing Annual Property Value Growth %"]/100,
                                   sale_tax_rate,
                                   LTV,
                                   starting_mortgage_rate,
                                   mortgage_term,
                                   refinance_toggle,
-                                  df_mcs.at[i,"Ongoing Mortgage Rate %"],
+                                  df_mcs.at[i,"Ongoing Mortgage Rate %"]/100,
                                   mortgage_fees_percentage,
                                   legal_fees_percentage,
                                   df_mcs.at[i,"Monthly Gross Rental Income"],
-                                  df_mcs.at[i,"Annual Rental Growth %"],
-                                  df_mcs.at[i,"Average Vacancy Rate %"],
+                                  df_mcs.at[i,"Annual Rental Growth %"]/100,
+                                  df_mcs.at[i,"Average Vacancy Rate %"]/100,
                                   mgmt_fee_percentage,
-                                  df_mcs.at[i,"Other Costs %"],
-                                  df_mcs.at[i,"Annual Cost Inflation %"],
+                                  df_mcs.at[i,"Other Costs %"]/100,
+                                  df_mcs.at[i,"Annual Cost Inflation %"]/100,
                                   tax_rate,
                                   tax_application)
     
