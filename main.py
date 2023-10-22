@@ -169,88 +169,89 @@ with tab2:
       disabled=["Metric","Base"],
       hide_index=True
     )
+  
+    property_investment_copy = property_investment
+    y1_capital_growth_copy = y1_capital_growth
+    capital_growth_copy = capital_growth    
+    ongoing_mortgage_rate_copy = ongoing_mortgage_rate
+    monthly_income_copy = monthly_income            
+    rental_growth_copy = rental_growth
+    vacancy_rate_copy = vacancy_rate
+    other_fee_percentage_copy = other_fee_percentage
+    inflation_copy = inflation
+    
+    def rand_number(x):
+    
+      df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
+                                     mode= adj_monte_carlo_df.at[x,"Base"],
+                                     right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
+                                     size=mcs_length)
+    
+      return df_temp
+    
+    property_investment_rand = rand_number(0)
+    y1_capital_growth_rand = rand_number(1)
+    capital_growth_rand = rand_number(2)  
+    ongoing_mortgage_rate_rand = rand_number(3)
+    monthly_income_rand = rand_number(4)            
+    rental_growth_rand = rand_number(5)
+    vacancy_rate_rand = rand_number(6)
+    other_fee_percentage_rand = rand_number(7)
+    inflation_rand = rand_number(8)
+    
+    df_mcs = pd.DataFrame({
+        
+        "Other Upfront Investment":property_investment_rand,
+       "First Year Property Value Growth %":y1_capital_growth_rand,
+       "Ongoing Annual Property Value Growth %":capital_growth_rand,
+       "Ongoing Mortgage Rate %":ongoing_mortgage_rate_rand,
+       "Monthly Gross Rental Income":monthly_income_rand,
+       "Annual Rental Growth %":rental_growth_rand,
+       "Average Vacancy Rate %":vacancy_rate_rand,
+       "Other Costs %":other_fee_percentage_rand,
+       "Annual Cost Inflation %":inflation_rand
+        
+    })
+  
+    progress_text = "Operation in progress. Please wait."
+    my_bar = st.progress(0, text=progress_text)
+    
+    for i in range(0,len(df_mcs)):
+  
+      calculations_mcs = calculation_mcs(appraisal_term,
+                                    purchase_price,
+                                    purchase_tax_rate,
+                                    df_mcs.at[i,"Other Upfront Investment"],
+                                    df_mcs.at[i,"First Year Property Value Growth %"]/100,
+                                    df_mcs.at[i,"Ongoing Annual Property Value Growth %"]/100,
+                                    sale_tax_rate,
+                                    LTV,
+                                    starting_mortgage_rate,
+                                    mortgage_term,
+                                    refinance_toggle,
+                                    df_mcs.at[i,"Ongoing Mortgage Rate %"]/100,
+                                    mortgage_fees_percentage,
+                                    legal_fees_percentage,
+                                    df_mcs.at[i,"Monthly Gross Rental Income"],
+                                    df_mcs.at[i,"Annual Rental Growth %"]/100,
+                                    df_mcs.at[i,"Average Vacancy Rate %"]/100,
+                                    mgmt_fee_percentage,
+                                    df_mcs.at[i,"Other Costs %"]/100,
+                                    df_mcs.at[i,"Annual Cost Inflation %"]/100,
+                                    tax_rate,
+                                    tax_application)
+      
+      df_mcs.at[i,"NIY"] = calculations_mcs[0]
+      df_mcs.at[i,"GIY"] = calculations_mcs[1]
+      df_mcs.at[i,"Capital Return"] = calculations_mcs[2]
+      df_mcs.at[i,"Income Return"] = calculations_mcs[3]
+      df_mcs.at[i,"Total Return"] = calculations_mcs[4]
+      df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
+  
+      my_bar.progress(round(i*100/mcs_length,0), text=progress_text)
+  
+    my_bar.empty()
 
     st.form_submit_button("Run Simulation")
-  
-  property_investment_copy = property_investment
-  y1_capital_growth_copy = y1_capital_growth
-  capital_growth_copy = capital_growth    
-  ongoing_mortgage_rate_copy = ongoing_mortgage_rate
-  monthly_income_copy = monthly_income            
-  rental_growth_copy = rental_growth
-  vacancy_rate_copy = vacancy_rate
-  other_fee_percentage_copy = other_fee_percentage
-  inflation_copy = inflation
-  
-  def rand_number(x):
-  
-    df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                   mode= adj_monte_carlo_df.at[x,"Base"],
-                                   right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                   size=mcs_length)
-  
-    return df_temp
-  
-  property_investment_rand = rand_number(0)
-  y1_capital_growth_rand = rand_number(1)
-  capital_growth_rand = rand_number(2)  
-  ongoing_mortgage_rate_rand = rand_number(3)
-  monthly_income_rand = rand_number(4)            
-  rental_growth_rand = rand_number(5)
-  vacancy_rate_rand = rand_number(6)
-  other_fee_percentage_rand = rand_number(7)
-  inflation_rand = rand_number(8)
-  
-  df_mcs = pd.DataFrame({
-      
-      "Other Upfront Investment":property_investment_rand,
-     "First Year Property Value Growth %":y1_capital_growth_rand,
-     "Ongoing Annual Property Value Growth %":capital_growth_rand,
-     "Ongoing Mortgage Rate %":ongoing_mortgage_rate_rand,
-     "Monthly Gross Rental Income":monthly_income_rand,
-     "Annual Rental Growth %":rental_growth_rand,
-     "Average Vacancy Rate %":vacancy_rate_rand,
-     "Other Costs %":other_fee_percentage_rand,
-     "Annual Cost Inflation %":inflation_rand
-      
-  })
-
-  progress_text = "Operation in progress. Please wait."
-  my_bar = st.progress(0, text=progress_text)
-  
-  for i in range(0,len(df_mcs)):
-
-    calculations_mcs = calculation_mcs(appraisal_term,
-                                  purchase_price,
-                                  purchase_tax_rate,
-                                  df_mcs.at[i,"Other Upfront Investment"],
-                                  df_mcs.at[i,"First Year Property Value Growth %"]/100,
-                                  df_mcs.at[i,"Ongoing Annual Property Value Growth %"]/100,
-                                  sale_tax_rate,
-                                  LTV,
-                                  starting_mortgage_rate,
-                                  mortgage_term,
-                                  refinance_toggle,
-                                  df_mcs.at[i,"Ongoing Mortgage Rate %"]/100,
-                                  mortgage_fees_percentage,
-                                  legal_fees_percentage,
-                                  df_mcs.at[i,"Monthly Gross Rental Income"],
-                                  df_mcs.at[i,"Annual Rental Growth %"]/100,
-                                  df_mcs.at[i,"Average Vacancy Rate %"]/100,
-                                  mgmt_fee_percentage,
-                                  df_mcs.at[i,"Other Costs %"]/100,
-                                  df_mcs.at[i,"Annual Cost Inflation %"]/100,
-                                  tax_rate,
-                                  tax_application)
-    
-    df_mcs.at[i,"NIY"] = calculations_mcs[0]
-    df_mcs.at[i,"GIY"] = calculations_mcs[1]
-    df_mcs.at[i,"Capital Return"] = calculations_mcs[2]
-    df_mcs.at[i,"Income Return"] = calculations_mcs[3]
-    df_mcs.at[i,"Total Return"] = calculations_mcs[4]
-    df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
-
-    my_bar.progress(i*100/mcs_length, text=progress_text)
 
   df_mcs
-  my_bar.empty()
