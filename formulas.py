@@ -211,5 +211,5 @@ def calculation_mcs(appraisal_term,
   income_return = (((cf_income + cf_costs + cf_mortgage + cf_tax + purchase_price) / purchase_price) ** (1/appraisal_term) - 1) * 100
   total_return = capital_return + income_return
   
-  return net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, cf_total_cash_flow
+  return net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, cf_total_cash_flow, cf_income, cf_costs, cf_mortgage, cf_tax, purchase_price
 
