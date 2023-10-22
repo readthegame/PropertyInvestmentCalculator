@@ -134,14 +134,15 @@ def calculation(appraisal_term,
   
   irr = npf.irr(irr_cash_flow["Total Cash Flow"])
   
-  capital_return = capital_growth * 100
+  capital_return = (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)
   income_return = (((sum(irr_cash_flow["Income"])+
                   sum(irr_cash_flow["Costs"])+
                   sum(irr_cash_flow["Mortgage"])+
                  purchase_price)/purchase_price) ** (1/appraisal_term) - 1) * 100
   total_return = capital_return + income_return
+  total_cash_profit = sum(irr_cash_flow["Total Cash Flow"]
   
-  return payback, appraisal_term, irr, net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, irr_cash_flow
+  return payback, appraisal_term, irr, net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, irr_cash_flow, total_cash_profit
 
 
 def calculation_mcs(appraisal_term,
