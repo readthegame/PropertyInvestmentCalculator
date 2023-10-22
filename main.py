@@ -256,7 +256,12 @@ with tab2:
         df_mcs.at[i,"Income Return"] = calculations_mcs[3]
         df_mcs.at[i,"Total Return"] = calculations_mcs[4]
         df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
-    
+        df_mcs.at[i,"Income"] = calculations_mcs[6]
+        df_mcs.at[i,"Costs"] = calculations_mcs[7]
+        df_mcs.at[i,"Tax"] = calculations_mcs[8]
+        df_mcs.at[i,"Mortgage"] = calculations_mcs[9]
+        df_mcs.at[i,"Purchase Price"] = calculations_mcs[10]
+        
         my_bar.progress(round(i/mcs_length,1), text=progress_text)
       
       c1, c2 = st.columns(2)
