@@ -236,7 +236,7 @@ with tab2:
                                       sale_tax_rate,
                                       LTV,
                                       starting_mortgage_rate,
-                                          )                                    mortgage_term,
+                                      mortgage_term,
                                       refinance_toggle,
                                       df_mcs.at[i,"Ongoing Mortgage Rate %"]/100,
                                       mortgage_fees_percentage,
