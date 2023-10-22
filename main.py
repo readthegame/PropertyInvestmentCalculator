@@ -271,8 +271,8 @@ with tab2:
         mean_tr = np.mean(df_mcs["Total Return"])
         std_tr = np.std(df_mcs["Total Return"])
     
-        st.text("Average: "+str(round(mean_tr,3))+"%")
-        st.text("68% likely within: "+str(round(mean_tr-std_tr,3))+" to "+str(round(mean_tr+std_tr,3))+"%")
+        st.text("Average: "+str(round(mean_tr,1))+"%")
+        st.text("68% likely within: "+str(round(mean_tr-std_tr,1))+" to "+str(round(mean_tr+std_tr,1))+"%")
         st.text("95% likely within: "+str(round((mean_tr-std_tr-std_tr),1))+" to "+str(round((mean_tr+std_tr+std_tr),1))+"%")
     
         st.pyplot(fig1)
@@ -287,8 +287,8 @@ with tab2:
         mean_tcp = np.mean(df_mcs["Total Cash Profit/(Loss)"])
         std_tcp = np.std(df_mcs["Total Cash Profit/(Loss)"])
     
-        st.text("Average: "+str(round(mean_tcp,3))+"%")
-        st.text("68% likely within: "+str(round(mean_tcp-std_tcp,3))+" to "+str(round(mean_tcp+std_tcp,3))+"%")
-        st.text("95% likely within: "+str(round((mean_tcp-std_tcp-std_tcp),1))+" to "+str(round((mean_tcp+std_tcp+std_tcp),1))+"%")
+        st.text("Average: "+str(round(mean_tcp,0)))
+        st.text("68% likely within: "+str(round(mean_tcp-std_tcp,0))+" to "+str(round(mean_tcp+std_tcp,0)))
+        st.text("95% likely within: "+str(round((mean_tcp-std_tcp-std_tcp),0))+" to "+str(round((mean_tcp+std_tcp+std_tcp),0)))
     
         st.pyplot(fig2)
