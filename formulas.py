@@ -193,7 +193,7 @@ def calculation_mcs(appraisal_term,
   cash_return = 1 / ROI
 
   cf_upfront_costs = -(deposit+legal_fees+property_investment+purchase_tax)
-  cf_income = (monthly_income * 12 * (1- vacancy_rate)) * (1 + rental_growth)**appriasal_term
+  cf_income = (monthly_income * 12 * (1- vacancy_rate)) * (1 + rental_growth)**appraisal_term
   cf_costs = (cf_income * -(mgmt_fee_percentage + other_fee_percentage)) * (1+(inflation-rental_growth))**appraisal_term
   cf_mortgage = -starting_monthly_mortgage_cost*12*mortgage_term - ongoing_monthly_mortgage_cost*12*(appraisal_term - mortgage_term)
   cf_tax = np.where(tax_application=="Income Only",
