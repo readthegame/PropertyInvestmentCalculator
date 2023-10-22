@@ -236,7 +236,7 @@ with tab2:
                                       sale_tax_rate,
                                       LTV,
                                       starting_mortgage_rate,
-                                      mortgage_term,
+                                          )                                    mortgage_term,
                                       refinance_toggle,
                                       df_mcs.at[i,"Ongoing Mortgage Rate %"]/100,
                                       mortgage_fees_percentage,
@@ -260,7 +260,14 @@ with tab2:
         my_bar.progress(round(i/mcs_length,1), text=progress_text)
       
     
-    fig, ax = plt.subplots()
-    ax.hist(df_mcs["Total Return"], bins=100)
+        fig, ax = plt.subplots()
+        ax.hist(df_mcs["Total Return"], bins=100)
+
+        mean = np.mean(df_mcs["Total Return"])
+        std = np.std(df_mcs["Total Return"])
     
-    st.pyplot(fig)
+        st.text("Average: "+str(round(mean,3)*100)+"%")
+        st.text("68% likely within: "+str(round(mean-std,3)*100)+"-"+str(round(mean+std,3)*100)+"%")
+        st.text("95% within: "+str(round((mean-std-std)*100,1))+"-"+str(round((mean+std+std)*100,1))+"%")
+    
+        st.pyplot(fig)
