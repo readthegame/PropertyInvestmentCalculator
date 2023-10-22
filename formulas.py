@@ -144,7 +144,7 @@ def calculation(appraisal_term,
   return payback, appraisal_term, irr, net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, irr_cash_flow
 
 
-def calculation_ex_payback(appraisal_term,
+def calculation_mcs(appraisal_term,
                 purchase_price,
                 purchase_tax_rate,
                 property_investment,
@@ -192,71 +192,23 @@ def calculation_ex_payback(appraisal_term,
   ROI = (monthly_pre_tax * 12) / (deposit + legal_fees)
   cash_return = 1 / ROI
 
-  cash_flow = pd.DataFrame(columns=["Year","Upfront Costs","Income","Costs","Mortgage"])
-  
-  for i in range(0,appraisal_term):
-    
-    cash_flow.at[i,"Year"] = i
-  
-  cash_flow["Upfront Costs"] = np.where(cash_flow["Year"]==0,
-                     -(deposit+legal_fees+property_investment+purchase_tax),
-                    0)
-  
-  cash_flow["Income"] = np.where(cash_flow["Year"]==0,
-                              0,
-                              monthly_income*12*(1-vacancy_rate))
-  
-  for i in range(1,len(cash_flow)):
-               
-    cash_flow.at[i,"Income"] = cash_flow.at[i,"Income"] * (1+rental_growth)**(cash_flow.at[i,"Year"]-1)
-  
-  cash_flow["Costs"] = cash_flow["Income"] * -(mgmt_fee_percentage + other_fee_percentage)
-  
-  for i in range(1,len(cash_flow)):
-               
-    cash_flow.at[i,"Costs"] = cash_flow.at[i,"Costs"] * (1+(inflation-rental_growth))**(cash_flow.at[i,"Year"]-1)
-  
-  cash_flow["Mortgage"] = 0
-  
-  for i in range(1,len(cash_flow)):
-    
-    if cash_flow.at[i,"Year"] <= mortgage_term:
-    
-        cash_flow.at[i,"Mortgage"] = -starting_monthly_mortgage_cost*12
-        
-    else:
-        
-        cash_flow.at[i,"Mortgage"] = -ongoing_monthly_mortgage_cost*12
-  
-  cash_flow["Tax"] = np.where(tax_application=="Income Only",
-                            cash_flow["Income"] * tax_rate * -1,
+  cf_upfront_costs = -(deposit+legal_fees+property_investment+purchase_tax)
+  cf_income = (monthly_income * 12 * (1- vacancy_rate)) * (1 + rental_growth)**appriasal_term
+  cf_costs = (cf_income * -(mgmt_fee_percentage + other_fee_percentage)) * (1+(inflation-rental_growth))**appraisal_term
+  cf_mortgage = -starting_monthly_mortgage_cost*12*mortgage_term - ongoing_monthly_mortgage_cost*12*(appraisal_term - mortgage_term)
+  cf_tax = np.where(tax_application=="Income Only",
+                            cf_income * tax_rate * -1,
                             np.where(tax_application=="Income less expenses (excl mortgage costs)",
-                                     (cash_flow["Income"] + cash_flow["Costs"]) * tax_rate * -1,
-                                     (cash_flow["Income"] + cash_flow["Costs"] + cash_flow["Mortgage"]) * tax_rate * -1))
+                                     (cf_income + cf_costs) * tax_rate * -1,
+                                     (cf_income + cf_costs + cf_mortgage) * tax_rate * -1))
+  cf_refinance_amount = refinance_amount
+  cf_exit_sale_price = (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage - refinance_amount
+  cf_exit_tax = cf_exit_sale_price * sale_tax_rate * -1
+  cf_total_cash_flow = cf_upfront_costs + cf_income + cf_costs + cf_mortgage + cf_tax + cf_refinance_amount + cf_exit_sale_price + cf_exit_tax
+   
+  capital_return = (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)
+  income_return = (((cf_income + cf_costs + cf_mortgage + cf_tax + purchase_price) / purchase_price) ** (1/appraisal_term) - 1) * 100
+  total_return = capital_return + income_retur
   
-  cash_flow["Refinance Income"] = np.where((refinance_toggle==True)&(cash_flow["Year"]==mortgage_term),
-                                            refinance_amount,0)
-  
-  irr_cash_flow = cash_flow.copy()
-  
-  irr_cash_flow["Exit Sale Price"] = np.where(irr_cash_flow["Year"]==appraisal_term,
-                     (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage - refinance_amount,
-                    0)
-  
-  irr_cash_flow["Exit Tax"] = irr_cash_flow["Exit Sale Price"] * sale_tax_rate * -1
-  
-  irr_cash_flow["Total Cash Flow"] = irr_cash_flow["Upfront Costs"] + irr_cash_flow["Exit Sale Price"] + irr_cash_flow["Income"] + irr_cash_flow["Costs"] + irr_cash_flow["Mortgage"] + irr_cash_flow["Tax"] + irr_cash_flow["Refinance Income"] + irr_cash_flow["Exit Tax"]
-  
-  
-  irr = npf.irr(irr_cash_flow["Total Cash Flow"])
-  
-  capital_return = capital_growth * 100
-  income_return = (((sum(irr_cash_flow["Income"])+
-                  sum(irr_cash_flow["Costs"])+
-                  sum(irr_cash_flow["Mortgage"])+
-                 purchase_price)/purchase_price) ** (1/appraisal_term) - 1) * 100
-  total_return = capital_return + income_return
-  payback = "n/a"
-  
-  return payback, appraisal_term, irr, net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, irr_cash_flow
+  return net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, cf_total_cash_flow
 
