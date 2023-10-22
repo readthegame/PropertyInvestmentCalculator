@@ -266,8 +266,8 @@ with tab2:
       mean = np.mean(df_mcs["Total Return"])
       std = np.std(df_mcs["Total Return"])
   
-      st.text("Average: "+str(round(mean,3)*100)+"%")
-      st.text("68% likely within: "+str(round(mean-std,3)*100)+"-"+str(round(mean+std,3)*100)+"%")
-      st.text("95% within: "+str(round((mean-std-std)*100,1))+"-"+str(round((mean+std+std)*100,1))+"%")
+      st.text("Average: "+str(round(mean,3))+"%")
+      st.text("68% likely within: "+str(round(mean-std,3))+" to "+str(round(mean+std,3))+"%")
+      st.text("95% within: "+str(round((mean-std-std),1))+" to "+str(round((mean+std+std),1))+"%")
   
       st.pyplot(fig)
