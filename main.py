@@ -218,44 +218,44 @@ with tab2:
     })
     
     progress_text = "Operation in progress. Please wait."
-    my_bar = st.progress(0, text=progress_text)
+    my_bar = st.progress(0, text="")
     
-    for i in range(0,len(df_mcs)):
-    
-      calculations_mcs = calculation_mcs(appraisal_term,
-                                    purchase_price,
-                                    purchase_tax_rate,
-                                    df_mcs.at[i,"Other Upfront Investment"],
-                                    df_mcs.at[i,"First Year Property Value Growth %"]/100,
-                                    df_mcs.at[i,"Ongoing Annual Property Value Growth %"]/100,
-                                    sale_tax_rate,
-                                    LTV,
-                                    starting_mortgage_rate,
-                                    mortgage_term,
-                                    refinance_toggle,
-                                    df_mcs.at[i,"Ongoing Mortgage Rate %"]/100,
-                                    mortgage_fees_percentage,
-                                    legal_fees_percentage,
-                                    df_mcs.at[i,"Monthly Gross Rental Income"],
-                                    df_mcs.at[i,"Annual Rental Growth %"]/100,
-                                    df_mcs.at[i,"Average Vacancy Rate %"]/100,
-                                    mgmt_fee_percentage,
-                                    df_mcs.at[i,"Other Costs %"]/100,
-                                    df_mcs.at[i,"Annual Cost Inflation %"]/100,
-                                    tax_rate,
-                                    tax_application)
+    if button = True:
       
-      df_mcs.at[i,"NIY"] = calculations_mcs[0]
-      df_mcs.at[i,"GIY"] = calculations_mcs[1]
-      df_mcs.at[i,"Capital Return"] = calculations_mcs[2]
-      df_mcs.at[i,"Income Return"] = calculations_mcs[3]
-      df_mcs.at[i,"Total Return"] = calculations_mcs[4]
-      df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
-  
-      my_bar.progress(round(i/mcs_length,1), text=progress_text)
+      for i in range(0,len(df_mcs)):
     
+        calculations_mcs = calculation_mcs(appraisal_term,
+                                      purchase_price,
+                                      purchase_tax_rate,
+                                      df_mcs.at[i,"Other Upfront Investment"],
+                                      df_mcs.at[i,"First Year Property Value Growth %"]/100,
+                                      df_mcs.at[i,"Ongoing Annual Property Value Growth %"]/100,
+                                      sale_tax_rate,
+                                      LTV,
+                                      starting_mortgage_rate,
+                                      mortgage_term,
+                                      refinance_toggle,
+                                      df_mcs.at[i,"Ongoing Mortgage Rate %"]/100,
+                                      mortgage_fees_percentage,
+                                      legal_fees_percentage,
+                                      df_mcs.at[i,"Monthly Gross Rental Income"],
+                                      df_mcs.at[i,"Annual Rental Growth %"]/100,
+                                      df_mcs.at[i,"Average Vacancy Rate %"]/100,
+                                      mgmt_fee_percentage,
+                                      df_mcs.at[i,"Other Costs %"]/100,
+                                      df_mcs.at[i,"Annual Cost Inflation %"]/100,
+                                      tax_rate,
+                                      tax_application)
+        
+        df_mcs.at[i,"NIY"] = calculations_mcs[0]
+        df_mcs.at[i,"GIY"] = calculations_mcs[1]
+        df_mcs.at[i,"Capital Return"] = calculations_mcs[2]
+        df_mcs.at[i,"Income Return"] = calculations_mcs[3]
+        df_mcs.at[i,"Total Return"] = calculations_mcs[4]
+        df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
     
-    st.form_submit_button("Run Simulation")
-    my_bar.empty()
+        my_bar.progress(round(i/mcs_length,1), text=progress_text)
+      
     
+    button = st.form_submit_button("Run Simulation")    
     df_mcs
