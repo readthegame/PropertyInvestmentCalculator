@@ -220,7 +220,7 @@ with tab2:
     progress_text = "Operation in progress. Please wait."
     my_bar = st.progress(0, text="")
     
-    if button = True:
+    if button == True:
       
       for i in range(0,len(df_mcs)):
     
