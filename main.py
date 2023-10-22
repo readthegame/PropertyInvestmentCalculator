@@ -259,15 +259,36 @@ with tab2:
     
         my_bar.progress(round(i/mcs_length,1), text=progress_text)
       
-    
-      fig, ax = plt.subplots()
-      ax.hist(df_mcs["Total Return"], bins=100)
+      c1, c2 = st.columns(3)
+  
+      with c1:
 
-      mean = np.mean(df_mcs["Total Return"])
-      std = np.std(df_mcs["Total Return"])
+        st.subheader("Total Returns")
+        
+        fig1, ax1 = plt.subplots()
+        ax1.hist(df_mcs["Total Return"], bins=100)
   
-      st.text("Average: "+str(round(mean,3))+"%")
-      st.text("68% likely within: "+str(round(mean-std,3))+" to "+str(round(mean+std,3))+"%")
-      st.text("95% within: "+str(round((mean-std-std),1))+" to "+str(round((mean+std+std),1))+"%")
+        mean_tr = np.mean(df_mcs["Total Return"])
+        std_tr = np.std(df_mcs["Total Return"])
+    
+        st.text("Average: "+str(round(mean_tr,3))+"%")
+        st.text("68% likely within: "+str(round(mean_tr-std_tr,3))+" to "+str(round(mean_tr+std_tr,3))+"%")
+        st.text("95% likely within: "+str(round((mean_tr-std_tr-std_tr),1))+" to "+str(round((mean_tr+std_tr+std_tr),1))+"%")
+    
+        st.pyplot(fig1)
+
+      with c2:
+
+        st.subheader("Total Cash Profit/(Loss)")
+        
+        fig2, ax2 = plt.subplots()
+        ax2.hist(df_mcs["Total Cash Profit/(Loss)"], bins=100)
   
-      st.pyplot(fig)
+        mean_tcp = np.mean(df_mcs["Total Cash Profit/(Loss)"])
+        std_tcp = np.std(df_mcs["Total Cash Profit/(Loss)"])
+    
+        st.text("Average: "+str(round(mean_tcp,3))+"%")
+        st.text("68% likely within: "+str(round(mean_tcp-std_tcp,3))+" to "+str(round(mean_tcp+std_tcp,3))+"%")
+        st.text("95% likely within: "+str(round((mean_tcp-std_tcp-std_tcp),1))+" to "+str(round((mean_tcp+std_tcp+std_tcp),1))+"%")
+    
+        st.pyplot(fig2)
