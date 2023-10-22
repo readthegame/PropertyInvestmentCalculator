@@ -8,6 +8,7 @@ import json
 import datetime
 import seaborn as sns
 import streamlit as st
+import matplotlib.pyplot as plt
 from formulas import calculation, calculation_mcs
 
 mcs_length = 50000
@@ -258,5 +259,8 @@ with tab2:
     
         my_bar.progress(round(i/mcs_length,1), text=progress_text)
       
-    button
-    df_mcs
+    
+    fig, ax = plt.subplots()
+    ax.hist(df_mcs["Total Return"], bins=100)
+    
+    st.pyplot(fig)
