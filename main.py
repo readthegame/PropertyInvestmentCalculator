@@ -248,7 +248,7 @@ with tab2:
       df_mcs.at[i,"Total Return"] = calculations_mcs[4]
       df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
   
-      my_bar.progress(int(round(i/mcs_length,0)), text=progress_text)
+      my_bar.progress(round(i/mcs_length,1), text=progress_text)
     
     
     st.form_submit_button("Run Simulation")
