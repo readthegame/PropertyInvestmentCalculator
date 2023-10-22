@@ -10,7 +10,7 @@ import seaborn as sns
 import streamlit as st
 from formulas import calculation, calculation_mcs
 
-mcs_length = 1000
+mcs_length = 100000
 
 st.title("Property Investment Calculator")
 
