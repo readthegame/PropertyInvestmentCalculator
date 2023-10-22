@@ -218,7 +218,7 @@ with tab2:
   
   for i in range(0,len(df_mcs)):
 
-    calculation_mcs = calculation_ex_payback(appraisal_term,
+    calculations_mcs = calculation_mcs(appraisal_term,
                                   purchase_price,
                                   purchase_tax_rate,
                                   df_mcs.at[i,"Other Upfront Investment"],
@@ -241,15 +241,12 @@ with tab2:
                                   tax_rate,
                                   tax_application)
     
-    #df_mcs.at[i,"Payback"] = calculation_mcs[0]
-    #df_mcs.at[i,"Appraisal Term"] = calculation_mcs[1]
-    df_mcs.at[i,"IRR"] = calculation_mcs[2]
-    df_mcs.at[i,"NIY"] = calculation_mcs[3]
-    df_mcs.at[i,"GIY"] = calculation_mcs[4]
-    df_mcs.at[i,"Capital Return"] = calculation_mcs[5]
-    df_mcs.at[i,"Income Return"] = calculation_mcs[6]
-    df_mcs.at[i,"Total Return"] = calculation_mcs[7]
-    #df_mcs.at[i,"IRR Cash Flow"] = calculation_mcs[8]
+    df_mcs.at[i,"NIY"] = calculation_mcs[0]
+    df_mcs.at[i,"GIY"] = calculation_mcs[1]
+    df_mcs.at[i,"Capital Return"] = calculation_mcs[2]
+    df_mcs.at[i,"Income Return"] = calculation_mcs[3]
+    df_mcs.at[i,"Total Return"] = calculation_mcs[4]
+    #df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculation_mcs[5]
 
     my_bar.progress(i, text=progress_text)
 
