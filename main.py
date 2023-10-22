@@ -169,7 +169,7 @@ with tab2:
       disabled=["Metric","Base"],
       hide_index=True
     )
-  
+    
     property_investment_copy = property_investment
     y1_capital_growth_copy = y1_capital_growth
     capital_growth_copy = capital_growth    
@@ -212,12 +212,12 @@ with tab2:
        "Annual Cost Inflation %":inflation_rand
         
     })
-  
+    
     progress_text = "Operation in progress. Please wait."
     my_bar = st.progress(0, text=progress_text)
     
     for i in range(0,len(df_mcs)):
-  
+    
       calculations_mcs = calculation_mcs(appraisal_term,
                                     purchase_price,
                                     purchase_tax_rate,
@@ -249,9 +249,9 @@ with tab2:
       df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
   
       my_bar.progress(round(i*100/mcs_length,0), text=progress_text)
-  
+    
     my_bar.empty()
-
+    
     st.form_submit_button("Run Simulation")
 
   df_mcs
