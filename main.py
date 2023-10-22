@@ -241,12 +241,12 @@ with tab2:
                                   tax_rate,
                                   tax_application)
     
-    df_mcs.at[i,"NIY"] = calculation_mcs[0]
-    df_mcs.at[i,"GIY"] = calculation_mcs[1]
-    df_mcs.at[i,"Capital Return"] = calculation_mcs[2]
-    df_mcs.at[i,"Income Return"] = calculation_mcs[3]
-    df_mcs.at[i,"Total Return"] = calculation_mcs[4]
-    #df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculation_mcs[5]
+    df_mcs.at[i,"NIY"] = calculations_mcs[0]
+    df_mcs.at[i,"GIY"] = calculations_mcs[1]
+    df_mcs.at[i,"Capital Return"] = calculations_mcs[2]
+    df_mcs.at[i,"Income Return"] = calculations_mcs[3]
+    df_mcs.at[i,"Total Return"] = calculations_mcs[4]
+    #df_mcs.at[i,"Total Cash Profit/(Loss)"] = calculations_mcs[5]
 
     my_bar.progress(i, text=progress_text)
 
