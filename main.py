@@ -220,6 +220,8 @@ with tab2:
     progress_text = "Operation in progress. Please wait."
     my_bar = st.progress(0, text="")
     
+    button = st.form_submit_button("Run Simulation")    
+    
     if button == True:
       
       for i in range(0,len(df_mcs)):
@@ -256,6 +258,5 @@ with tab2:
     
         my_bar.progress(round(i/mcs_length,1), text=progress_text)
       
-    
-    button = st.form_submit_button("Run Simulation")    
+    button
     df_mcs
