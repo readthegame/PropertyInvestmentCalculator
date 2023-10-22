@@ -225,7 +225,7 @@ with tab2:
     
     if button == True:
       
-      for i in range(0,len(df_mcs)):
+      for i in range(0.0,len(df_mcs)):
     
         calculations_mcs = calculation_mcs(appraisal_term,
                                       purchase_price,
