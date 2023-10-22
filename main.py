@@ -8,7 +8,7 @@ import json
 import datetime
 import seaborn as sns
 import streamlit as st
-from formulas import calculation, calculation_ex_payback
+from formulas import calculation, calculation_mcs
 
 st.title("Property Investment Calculator")
 
