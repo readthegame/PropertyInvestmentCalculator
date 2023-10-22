@@ -219,13 +219,13 @@ with tab2:
     })
     
     progress_text = "Operation in progress. Please wait."
-    my_bar = st.progress(0, text="")
+    my_bar = st.progress(0.0, text="")
     
     button = st.form_submit_button("Run Simulation")    
     
     if button == True:
       
-      for i in range(0.0,len(df_mcs)):
+      for i in range(0,len(df_mcs)):
     
         calculations_mcs = calculation_mcs(appraisal_term,
                                       purchase_price,
