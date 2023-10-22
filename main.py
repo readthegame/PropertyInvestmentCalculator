@@ -250,8 +250,8 @@ with tab2:
   
       my_bar.progress(int(round(i/mcs_length,0)), text=progress_text)
     
-    my_bar.empty()
     
     st.form_submit_button("Run Simulation")
+  my_bar.empty()
 
   df_mcs
