@@ -143,7 +143,7 @@ def calculation(appraisal_term,
                   sum(irr_cash_flow["Costs"])+
                   sum(irr_cash_flow["Mortgage"])+
                  purchase_price)/purchase_price) ** (1/appraisal_term) - 1) * 100
-  total_return_value = capital_return + income_return
+  total_return_value = capital_return_value + income_return_value
   
   capital_return = ((((purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - purchase_price) / deposit) ** (1 / appraisal_term) - 1) * 100
   income_return = (((sum(irr_cash_flow["Income"])+
