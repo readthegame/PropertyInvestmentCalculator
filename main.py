@@ -133,19 +133,18 @@ with tab1:
           st.metric("Gross Initial Yield",str(round(gross_initial_yield*100,1))+"%")          
 
       with col2:
-          st.metric("Capital Return on Cash",str(round(capital_return,1))+"%")
+          st.metric("Capital Return on Asset",str(round(capital_return_value,1))+"%")
+          st.metric("Income Return on Asset",str(round(income_return_value,1))+"%")
+          st.metric("Total Return on Asset",str(round(total_return_value,1))+"%")
+          st.metric(str(appraisal_term)+"yr IRR on Asset",str(round(irr_value*100,1))+"%")   
+        
+      with col3:
+        st.metric("Capital Return on Cash",str(round(capital_return,1))+"%")
           st.metric("Income Return on Cash",str(round(income_return,1))+"%")
           st.metric("Total Return on Cash",str(round(total_return,1))+"%")
           st.metric(str(appraisal_term)+"yr IRR on Cash",str(round(irr*100,1))+"%")    
           st.metric("Cash Payback (yrs)",payback)
           st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",f"{int(total_cash_profit):,}")
-        
-      with col3:
-          st.metric("Capital Return on Asset",str(round(capital_return_value,1))+"%")
-          st.metric("Income Return on Asset",str(round(income_return_value,1))+"%")
-          st.metric("Total Return on Asset",str(round(total_return_value,1))+"%")
-          st.metric(str(appraisal_term)+"yr IRR on Asset",str(round(irr_value*100,1))+"%")    
-
   
   st.header(str(appraisal_term) + " Year Cash Flows")
   
