@@ -15,7 +15,7 @@ mcs_length = 50000
 
 st.title("Property Investment Calculator")
 
-tab1, tab2, tab3 = st.tabs(["Main", "Monte Carlo Simulation", "Sensitivity Analysis"])
+tab1, tab2, tab3, tab4 = st.tabs(["Main", "Monte Carlo Simulation", "Sensitivity Analysis","Glossary"])
 
 with tab1:
 
