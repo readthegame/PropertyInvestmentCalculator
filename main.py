@@ -125,13 +125,17 @@ with tab1:
           st.metric("Total Return on Cash",0)
   else:
       with col1:
-          st.metric("Cash Payback (yrs)",payback)
-          st.metric(str(appraisal_term)+"yr IRR on Cash",str(round(irr*100,1))+"%")
-          st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",int(total_cash_profit))
+          st.metric("Net Initial Yield",str(round(net_initial_yield*100,1))+"%")
+          st.metric("Gross Initial Yield",str(round(gross_initial_yield*100,1))+"%")          
 
       with col2:
-          st.metric("Net Initial Yield",str(round(net_initial_yield*100,1))+"%")
-          st.metric("Gross Initial Yield",str(round(gross_initial_yield*100,1))+"%")
+          st.metric("Capital Return on Cash",str(round(capital_return,1))+"%")
+          st.metric("Income Return on Cash",str(round(income_return,1))+"%")
+          st.metric("Total Return on Cash",str(round(total_return,1))+"%")
+          st.metric(str(appraisal_term)+"yr IRR on Cash",str(round(irr*100,1))+"%")    
+          st.metric("Cash Payback (yrs)",payback)
+          st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",f"{int(total_cash_profit):,}")
+        
       with col3:
           st.metric("Capital Return on Cash",str(round(capital_return,1))+"%")
           st.metric("Income Return on Cash",str(round(income_return,1))+"%")
@@ -187,10 +191,20 @@ with tab2:
     
     def rand_number(x):
     
-      df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                     mode= adj_monte_carlo_df.at[x,"Base"],
-                                     right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
-                                     size=mcs_length)
+      left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"]
+      mode= adj_monte_carlo_df.at[x,"Base"]
+      right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"]
+
+      if left == right:
+
+        df_temp = np.array([mode]*mcs_length)
+
+      else:
+      
+        df_temp = np.random.triangular(left=adj_monte_carlo_df.at[x,"Min Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
+                                       mode= adj_monte_carlo_df.at[x,"Base"],
+                                       right= adj_monte_carlo_df.at[x,"Max Value"] * adj_monte_carlo_df.at[x,"Simulate?"] + (1 - adj_monte_carlo_df.at[x,"Simulate?"]) * adj_monte_carlo_df.at[x,"Base"],
+                                       size=mcs_length)
     
       return df_temp
     
