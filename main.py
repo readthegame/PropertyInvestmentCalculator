@@ -139,7 +139,7 @@ with tab1:
           st.metric(str(appraisal_term)+"yr IRR on Asset",str(round(irr_value*100,1))+"%")   
         
       with col3:
-        st.metric("Capital Return on Cash",str(round(capital_return,1))+"%")
+          st.metric("Capital Return on Cash",str(round(capital_return,1))+"%")
           st.metric("Income Return on Cash",str(round(income_return,1))+"%")
           st.metric("Total Return on Cash",str(round(total_return,1))+"%")
           st.metric(str(appraisal_term)+"yr IRR on Cash",str(round(irr*100,1))+"%")    
