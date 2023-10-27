@@ -287,7 +287,7 @@ with tab2:
   
       with c1:
 
-        st.subheader("Total Returns")
+        st.subheader("Total Return on Cash")
         
         fig1, ax1 = plt.subplots()
         ax1.hist(df_mcs["Total Return"], bins=100)
