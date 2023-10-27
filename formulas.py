@@ -149,7 +149,7 @@ def calculation(appraisal_term,
   income_return = (((sum(irr_cash_flow["Income"])+
                       sum(irr_cash_flow["Costs"])+
                       sum(irr_cash_flow["Mortgage"])+
-                      deposit)/deposit) ** (1/appraisal_term) - 1) * 100
+                      (deposit + legal_fees + property_investment))/(deposit + legal_fees + property_investment)) ** (1/appraisal_term) - 1) * 100
   total_return = capital_return + income_return
   total_cash_profit = sum(irr_cash_flow["Total Cash Flow"])
   
@@ -210,10 +210,10 @@ def calculation_mcs(appraisal_term,
   cf_refinance_amount = refinance_amount
   cf_exit_sale_price = (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage - refinance_amount
   cf_exit_tax = cf_exit_sale_price * sale_tax_rate * -1
-  cf_total_cash_flow = cf_upfront_costs + cf_income + cf_costs + cf_mortgage + cf_tax + cf_refinance_amount + cf_exit_sale_price + cf_exit_tax
-   
-  capital_return = (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)
-  income_return = (((cf_income + cf_costs + cf_mortgage + cf_tax + purchase_price) / purchase_price) ** (1/appraisal_term) - 1) * 100
+  cf_total_cash_flow = cf_upfront_costs + cf_income + cf_costs + cf_mortgage + cf_tax + cf_refinance_amount + cf_exit_sale_price + cf_exit_tax                  
+
+  capital_return = (((((purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - purchase_price) / (deposit + legal_fees + property_investment)) + 1) ** (1 / appraisal_term) - 1) * 100
+  income_return = (((cf_income + cf_costs + cf_mortgage + (deposit + legal_fees + property_investment)) / (deposit + legal_fees + property_investment)) ** (1/appraisal_term) - 1) * 100
   total_return = capital_return + income_return
   
   return net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, cf_total_cash_flow, cf_income, cf_costs, cf_mortgage, cf_tax, purchase_price
