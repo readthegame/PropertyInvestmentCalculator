@@ -240,7 +240,7 @@ with tab2:
     progress_text = "Operation in progress. Please wait."
     my_bar = st.progress(0.0, text="")
     
-    button = st.form_submit_button("Run Simulation")    
+    button = st.form_submit_button("Run Simulation (takes up to 60 seconds")    
     
     if button == True:
       
