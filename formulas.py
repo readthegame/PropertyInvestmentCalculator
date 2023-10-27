@@ -209,7 +209,7 @@ def calculation_mcs(appraisal_term,
                                      (cf_income + cf_costs + cf_mortgage) * -tax_rate))
   cf_refinance_amount = refinance_amount
   cf_exit_sale_price = (purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - mortgage - refinance_amount
-  cf_exit_tax = cf_exit_sale_price * sale_tax_rate * -1
+  cf_exit_tax = ((purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - purchase_price) * sale_tax_rate * -1
   cf_total_cash_flow = cf_upfront_costs + cf_income + cf_costs + cf_mortgage + cf_tax + cf_refinance_amount + cf_exit_sale_price + cf_exit_tax                  
 
   capital_return = (((((purchase_price * (1 + y1_capital_growth) * (1 + capital_growth) ** (appraisal_term - 1)) - purchase_price) / (deposit + legal_fees + property_investment)) + 1) ** (1 / appraisal_term) - 1) * 100
