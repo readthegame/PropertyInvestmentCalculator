@@ -106,6 +106,10 @@ with tab1:
   total_return = calculations[7]
   irr_cash_flow = calculations[8]
   total_cash_profit = calculations[9]
+  irr_value = calculations[10]
+  capital_return_value = calculations[11]
+  income_return_value = calculations[12]
+  total_return_value = calculations[13]
   
   st.header("Outputs")
   col1, col2, col3 = st.columns(3)
@@ -137,9 +141,11 @@ with tab1:
           st.metric("Total Cash Profit/(Loss) over "+str(appraisal_term)+"yrs",f"{int(total_cash_profit):,}")
         
       with col3:
-          st.metric("Capital Return on Cash",str(round(capital_return,1))+"%")
-          st.metric("Income Return on Cash",str(round(income_return,1))+"%")
-          st.metric("Total Return on Cash",str(round(total_return,1))+"%")
+          st.metric("Capital Return on Asset",str(round(capital_return_value,1))+"%")
+          st.metric("Income Return on Asset",str(round(income_return_value,1))+"%")
+          st.metric("Total Return on Asset",str(round(total_return_value,1))+"%")
+          st.metric(str(appraisal_term)+"yr IRR on Asset",str(round(irr_value*100,1))+"%")    
+
   
   st.header(str(appraisal_term) + " Year Cash Flows")
   
