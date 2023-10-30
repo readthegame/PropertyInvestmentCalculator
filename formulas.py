@@ -104,7 +104,7 @@ def calculation(appraisal_term,
   
   irr_cash_flow["Total Cash Flow"] = irr_cash_flow["Upfront Costs"] + irr_cash_flow["Exit Sale Price"] + irr_cash_flow["Income"] + irr_cash_flow["Costs"] + irr_cash_flow["Mortgage"] + irr_cash_flow["Tax"] + irr_cash_flow["Refinance Income"] + irr_cash_flow["Exit Tax"]
 
-  value_irr_cash_flow = irr_cash_flow
+  value_irr_cash_flow = irr_cash_flow.copy()
 
   value_irr_cash_flow.at[0,"Total Cash Flow"] = value_irr_cash_flow.at[0,"Total Cash Flow"] - mortgage
   value_irr_cash_flow.at[appraisal_term,"Total Cash Flow"] = value_irr_cash_flow.at[appraisal_term,"Total Cash Flow"] + mortgage + refinance_amount
