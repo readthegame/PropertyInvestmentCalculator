@@ -153,7 +153,7 @@ def calculation(appraisal_term,
   total_return = capital_return + income_return
   total_cash_profit = sum(irr_cash_flow["Total Cash Flow"])
   
-  return payback, appraisal_term, irr, net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, value_irr_cash_flow, total_cash_profit, irr_value, capital_return_value, income_return_value, total_return_value
+  return payback, appraisal_term, irr, net_initial_yield, gross_initial_yield, capital_return, income_return, total_return, irr_cash_flow, total_cash_profit, irr_value, capital_return_value, income_return_value, total_return_value
 
 
 def calculation_mcs(appraisal_term,
